@@ -1,0 +1,38 @@
+description: Add missing Environment and Owner tags to EC2 instance
+schemaVersion: '0.3'
+assumeRole: '{{ AutomationAssumeRole }}'
+parameters:
+  InstanceId:
+    type: String
+    description: EC2 instance ID
+  AutomationAssumeRole:
+    type: String
+    description: IAM role ARN for executing the document
+mainSteps:
+  - name: CheckTags
+    action: aws:executeAwsApi
+    nextStep: AddMissingTags
+    isEnd: false
+    inputs:
+      Service: ec2
+      Api: DescribeTags
+      Filters:
+        - Name: resource-id
+          Values:
+            - '{{ InstanceId }}'
+        - Name: resource-type
+          Values:
+            - instance
+  - name: AddMissingTags
+    action: aws:executeAwsApi
+    isEnd: true
+    inputs:
+      Service: ec2
+      Api: CreateTags
+      Resources:
+        - '{{ InstanceId }}'
+      Tags:
+        - Key: Environment
+          Value: Dev
+        - Key: Owner
+          Value: Jenny

@@ -1,0 +1,28 @@
+description: Re-enable CloudTrail logging and notify compliance lead
+schemaVersion: '0.3'
+parameters:
+  AutomationAssumeRole:
+    type: String
+    description: SSMCloudtrail
+  TrailName:
+    type: String
+    description: MyComplianceTrail
+assumeRole: '{{ AutomationAssumeRole }}'
+mainSteps:
+  - name: StartLogging
+    action: aws:executeAwsApi
+    nextStep: NotifyCompliance
+    isEnd: false
+    inputs:
+      Service: cloudtrail
+      Api: StartLogging
+      Name: '{{ TrailName }}'
+  - name: NotifyCompliance
+    action: aws:executeAwsApi
+    isEnd: true
+    inputs:
+      Service: sns
+      Api: Publish
+      TopicArn: arn:aws:sns:ap-south-1:772693223288:compliance-notifications
+      Message: CloudTrail logging was disabled and has been re-enabled automatically by the compliance system.
+      Subject: CloudTrail Remediation Notification

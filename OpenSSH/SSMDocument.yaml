@@ -1,0 +1,26 @@
+schemaVersion: '0.3'
+description: Remediate Security Group to remove SSH (port 22) open to 0.0.0.0/0
+assumeRole: '{{ AutomationAssumeRole }}'
+parameters:
+  SecurityGroupId:
+    type: String
+    description: (Required) The Security Group ID to remediate
+  AutomationAssumeRole:
+    type: String
+    description: (Required) The ARN of the role that Automation assumes to perform tasks
+mainSteps:
+  - name: revokePort22
+    action: aws:executeAwsApi
+    maxAttempts: 1
+    isEnd: true
+    onFailure: Abort
+    inputs:
+      Service: ec2
+      Api: RevokeSecurityGroupIngress
+      GroupId: '{{ SecurityGroupId }}'
+      IpPermissions:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          IpRanges:
+            - CidrIp: 0.0.0.0/0
