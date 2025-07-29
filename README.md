@@ -16,7 +16,7 @@ Build a **Compliance Automation Framework** using **AWS Config** and **AWS Syste
 - **AWS Systems Manager (SSM)** – Executes **Automation Documents (SSM Documents)** for remediation  
 - **AWS CloudTrail** – Records all API activity for auditing and traceability  
 - **Amazon EventBridge** – Triggers automation workflows on compliance events  
-- **AWS Lambda (Optional)** – Custom evaluation or advanced remediation logic  
+- **AWS Lambda** – Custom evaluation or advanced remediation logic  
 - **Amazon S3** – Stores compliance reports and remediation logs securely  
 
 ---
@@ -26,4 +26,30 @@ Build a **Compliance Automation Framework** using **AWS Config** and **AWS Syste
 - 🚀 **Real-time detection and remediation** of non-compliant resources  
 - 📊 **Automated compliance reporting** using S3 & CloudTrail logs  
 - 🔒 **Secure and auditable workflows** for governance  
-- ⚡ **Scalable** to multiple AWS accounts or regions  
+- ⚡ **Scalable** to multiple AWS accounts or regions
+
+---
+
+## 🔹 Key Scenarios
+
+### 📌 Scenario 1: Open Security Group (Port 22 exposed to 0.0.0.0/0)
+- **Detection:** AWS Config detects wide-open security group rule  
+- **Remediation:** SSM Automation runbook revokes the ingress rule immediately  
+- **Notification:** Amazon SNS sends an email alert to **SecurityOps**
+
+---
+
+### 📌 Scenario 3: Missing Required Tags on EC2
+- **Detection:** AWS Config rule finds missing **Environment** or **Owner** tag  
+- **Remediation:**  
+  - Adds default tags automatically via SSM  
+  - Optionally terminates untagged instances if unused  
+- **Business Case:** Enforces **cost-center accountability** and governance
+
+---
+
+### 📌 Scenario 4: Disabled CloudTrail
+- **Detection:** AWS Config or EventBridge detects when a CloudTrail is **disabled**  
+- **Remediation:** SSM **re-enables logging** and sends notification to **Compliance Lead**
+
+---
