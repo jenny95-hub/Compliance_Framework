@@ -42,14 +42,12 @@ Build a **Compliance Automation Framework** using **AWS Config** and **AWS Syste
 ### 📌 Scenario 3: Missing Required Tags on EC2
 - **Detection:** AWS Config rule finds missing **Environment** or **Owner** tag  
 - **Remediation:**  
-  - Adds default tags automatically via SSM  
-  - Optionally terminates untagged instances if unused  
-- **Business Case:** Enforces **cost-center accountability** and governance
+  - Adds default tags automatically via SSM 
 
 ---
 
 ### 📌 Scenario 4: Disabled CloudTrail
-- **Detection:** AWS Config or EventBridge detects when a CloudTrail is **disabled**  
+- **Detection:** EventBridge detects when a CloudTrail is **disabled**  
 - **Remediation:** SSM **re-enables logging** and sends notification to **Compliance Lead**
 
 ---
