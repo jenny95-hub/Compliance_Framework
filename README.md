@@ -46,14 +46,13 @@ Build a **Compliance Automation Framework** using **AWS Config** and **AWS Syste
 
 ---
 
-#### Implementation guide
-[📘 Download Compliance_Automation_Framework.docx](Compliance_Automation_Framework.docx)
-
-*Note: This file is large and cannot be previewed on GitHub but can be downloaded by clicking the link.*
-
-
 ### 📌 Scenario 4: Disabled CloudTrail
 - **Detection:** EventBridge detects when a CloudTrail is **disabled**  
 - **Remediation:** SSM **re-enables logging** and sends notification to **Compliance Lead**
 
 ---
+
+#### Implementation guide
+[📘 Download Compliance_Automation_Framework.docx](Compliance_Automation_Framework.docx)
+
+*Note: This file is large and cannot be previewed on GitHub but can be downloaded by clicking the link.*
